@@ -1,4 +1,4 @@
-input
+input*
 *.out
 _*.c
 _*.py
