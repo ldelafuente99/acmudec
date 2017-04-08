@@ -2,3 +2,4 @@ input*
 *.out
 _*.c
 _*.py
+output
