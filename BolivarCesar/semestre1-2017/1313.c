@@ -1,3 +1,5 @@
+// César Bolívar Severino
+// resuelto propio
 #include <stdio.h>
 // apostaria a que esta wea no necesita tantos ciclos...
 int main(int argc, char const *argv[])

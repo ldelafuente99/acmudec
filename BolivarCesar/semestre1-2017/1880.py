@@ -1,5 +1,7 @@
 #!/usr/bin/env python
 # coding=utf-8
+# César Bolívar Severino
+# resuelto propio
 
 p1 = int(input())
 e1 = input().split(' ')

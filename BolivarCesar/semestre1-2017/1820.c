@@ -1,3 +1,5 @@
+// César Bolívar Severino
+// resuelto propio
 #include <stdio.h>
 #include <math.h>
 
