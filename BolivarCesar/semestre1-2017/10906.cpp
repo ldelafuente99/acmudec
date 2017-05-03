@@ -5,23 +5,40 @@
 
 using namespace std;
 
-void print_expression(map<string, tuple<string, string, string>>& expr, string s) {
+bool is_constant(map<string, tuple<string, string, string>>& expr, string var) {
+	return expr.find(var) == expr.end();
+}
+
+void print_expression(map<string, tuple<string, string, string>>& expr, string s, string prev_op, bool is_left) {
 	// si no es una variable no estará en el map, por lo tanto es un valor inmediato. Lo imprimimos
-	if (expr.find(s) == expr.end()) {
+	if (is_constant(expr, s)) {
 		cout << s;
 		return;
 	}
 	string var1 = get<0>(expr[s]);
+	string curr_op = get<1>(expr[s]);
 	string var2 = get<2>(expr[s]);
-	print_expression(expr, get<0>(expr[s])); // imprimimos el desglose de la primera variable
-	cout << get<1>(expr[s]);
-	if (expr.find(var2) != expr.end()) {
-		cout << "(";
-		print_expression(expr, get<2>(expr[s])); // imprimimos el desglose de la segunda variable
-		cout << ")";
+	if (prev_op == "+") {
+		if (curr_op == "+" && !is_left) {
+			cout << "(";
+		}
+		print_expression(expr, var1, curr_op, true); // imprimimos el desglose de la primera variable
+		cout << get<1>(expr[s]);
+		print_expression(expr, var2, curr_op, false); // imprimimos el desglose de la segunda variable
+		if (curr_op == "+" && !is_left) {
+			cout << ")";
+		}
 	}
-	else {
-		print_expression(expr, get<2>(expr[s])); // imprimimos el desglose de la segunda variable
+	else if (prev_op == "*") {
+		if (curr_op == "+" || (curr_op == "*" && !is_left)) {
+			cout << "(";
+		}
+		print_expression(expr, var1, curr_op, true); // imprimimos el desglose de la primera variable
+		cout << get<1>(expr[s]);
+		print_expression(expr, var2, curr_op, false); // imprimimos el desglose de la segunda variable
+		if (curr_op == "+" || (curr_op == "*" && !is_left)) {
+			cout << ")";
+		}
 	}
 }
 
@@ -46,7 +63,7 @@ int main(int argc, char const *argv[]) {
 		}
 		// cout << "last: " << last << endl;
 		cout << "Expression #" << i << ": ";
-		print_expression(expr, last);
+		print_expression(expr, last, "+", true);
 		cout << endl;
 	}
 	return 0;
