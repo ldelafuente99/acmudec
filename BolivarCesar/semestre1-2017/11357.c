@@ -1,7 +1,8 @@
 #include <stdio.h>
 #include <string.h>
 
-char formula[252];
+char formula[252]; // formula despues de pasar a notacion postfija
+char formula2[252]; // formula antes de pasar a notacion postfija
 int value[26] = {0};
 char variable[27] = {'\0'};
 int operand[250] = {0};
@@ -12,6 +13,44 @@ int is_operand(char c)
 {
 	return 'a' <= c && c <= 'z';
 }
+
+void INtoRPN(char src[], char dest[]) {
+	int src_len = strlen(src);
+	int i = 0; // indice para src
+	int j = 0; // indice para dest
+	int k = 0; // indice para op_stk
+	char stk[256];
+	for (i = 0; i < src_len; i++) {
+		// printf("%d %d %d\n", i, j, k);
+		if (src[i] == '(' || src[i] == '&' || src[i] == '|') {
+			stk[k++] = src[i];
+		}
+		else if ('a' <= src[i] && src[i] <= 'z') {
+			dest[j++] = src[i];
+		}
+		else if (src[i] == '~') {
+			dest[j++] = src[i + 1];
+			dest[j++] = '~';
+			i++;
+		}
+		else if (src[i] == ')') {
+			while (stk[k - 1] != '(') {
+				dest[j++] = stk[k - 1];
+				k--;
+			}
+			k--; // pop ')'
+		}
+		else {
+			// puts("wtf nigga??");
+		}
+		// printf("%c\n", src[i]);
+	}
+	while (k > 0) { // popear los '|'
+		dest[j++] = stk[--k];
+	}
+	dest[j] = '\0';
+}
+
 
 // esta wea determina si la formula en notacion polaca inversa da true
 int is_satisfiable()
@@ -74,7 +113,9 @@ int main(int argc, char const* argv[])
 	int vars = 0;
 	scanf("%d", &cases);
 	for (int i = 0; i < cases; i++) {
-		scanf("%s", formula);
+		// fprintf(stderr, "%d\n", i);
+		scanf("%s", formula2);
+		INtoRPN(formula2, formula);
 		int k = 0;
 		for (int j = 0; j < strlen(formula); j++) {
 			if (is_operand(formula[j]) && !in(variable, k, formula[j])) {
