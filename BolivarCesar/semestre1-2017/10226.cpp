@@ -22,9 +22,9 @@ int main(int argc, char const* argv[])
 		}
 		for (auto t: m) {
 			cout << t.first << ' ';
-			printf("%.4f \n", 100.0*t.second / total_trees);
+			printf("%.4f\n", 100.0*t.second / total_trees);
 		}
-		cout << endl;
+		if (i != n - 1) cout << endl;
 	}
 	return 0;
 }
