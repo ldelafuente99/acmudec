@@ -23,29 +23,20 @@ int main(int argc, char const* argv[])
 			// cout << "k: " << k << endl;
 			v.push_back(k);
 		}
-		for (int j = 0; j < n; j++) {
-			// cout << "j arriba: " << j << endl;
-			int k = v[j];
-			if (s.find(k) == s.end()) {
-				// cout << "insertando " << k << "..." << endl;
-				s.insert(k);
-				result = max(result, int(s.size()));
-			}
-			else {
-				result = max(result, int(s.size()));
+		int j = 0;
+		while (j < n) {
+			if (s.find(v[j]) != s.end()) {
+				int l = j - 1;
+				while (l >= 0 && v[l] != v[j]) {
+					l--;
+				}
+				// cout << "i: " << i << "  l: " << l << endl;
+				j = l + 1;
 				s.clear();
-				s.insert(k);
-
-				// // TODO: encontrar el indice del k anterior + 1
-				// int l = k - 1;
-				// while (l >= 0 && v[l] != k) {
-				// 	l--;
-				// }
-				// cout << "indice: " << l + 1 << endl;
-				// j = l + 1;
-				// cout << "j abajo: " << j << endl;
-				// // j = l + 1;
 			}
+			s.insert(v[j]);
+			result = max(result, int(s.size()));
+			j++;
 		}
 		cout << result << endl;
 	}
