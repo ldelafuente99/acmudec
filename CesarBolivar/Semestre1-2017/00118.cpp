@@ -30,35 +30,23 @@ int main(int argc, char const* argv[])
 			if (c != 'F') { dir = m[dir][c]; }
 			else {
 				if (dir == 'N') {
-					if (y == yn) {
-						if (!grid[x][y]) { grid[x][y] = true; lost = true; }
-						else { /* se ignora la instrucción*/ }
-					}
+					if (y == yn) { lost = !grid[x][y]; }
 					else { y++; }
 				}
-				if (dir == 'S') {
-					if (y == 0) {
-						if (!grid[x][y]) { grid[x][y] = true; lost = true; }
-						else { /* se ignora la instrucción*/ }
-					}
+				else if (dir == 'S') {
+					if (y == 0) { lost = !grid[x][y]; }
 					else { y--; }
 				}
-				if (dir == 'E') {
-					if (x == xn) {
-						if (!grid[x][y]) { grid[x][y] = true; lost = true; }
-						else { /* se ignora la instrucción*/ }
-					}
+				else if (dir == 'E') {
+					if (x == xn) { lost = !grid[x][y]; }
 					else { x++; }
 				}
-				if (dir == 'W') {
-					if (x == 0) {
-						if (!grid[x][y]) { grid[x][y] = true; lost = true; }
-						else { /* se ignora la instrucción*/ }
-					}
+				else if (dir == 'W') {
+					if (x == 0) { lost = !grid[x][y]; }
 					else { x--; }
 				}
 			}
-			if (lost) { break; }
+			if (lost) {grid[x][y] = true; break; }
 		}
 		cout << x << ' ' << y << ' ' << dir;
 		if (lost) {
