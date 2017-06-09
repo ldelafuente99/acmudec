@@ -7,18 +7,26 @@ using namespace std;
 // typedef vector<vector<int>> graph;
 typedef vector<set<int>> graph;
 
-void dfs(graph& g, vector<bool>& visited, int k) {
-	if (visited[k]) {
+void dfs(int u, graph& g, set<int>& visited) {
+	if (visited.find(u) != visited.end()) {
 		return;
 	}
-	for (auto n: g[k]) {
-		dfs(g, visited, n);
+	visited.insert(u);
+	// cout << "insertando "<< u << endl;
+	for (auto v: g[u]) {
+		// cout << "v: " << v;
+		dfs(v, g, visited);
 	}
+	// cout << endl;
 }
 
-void Dfs() {
 
+int dfs(int u, graph& g) {
+	set<int> s;
+	dfs(u, g, s);
+	return s.size();
 }
+
 
 int main(int argc, char const* argv[])
 {
@@ -37,21 +45,24 @@ int main(int argc, char const* argv[])
 			g[u].insert(v);
 			// g[u].push_back(v);
 		}
-		for (int z = 1; z <= N; z++) {
-			for (int x = 1; x <= N; x++) {
-				for (int y = 1; y <= N; y++) {
-					if (g[x].find(z) != g[x].end() && g[z].find(y) != g[z].end()) {
-						g[x].insert(y);
-					}
-				}
-			}
-		}
+		// muy lenta la clausura transitiva...
+		// for (int z = 1; z <= N; z++) {
+		// 	for (int x = 1; x <= N; x++) {
+		// 		for (int y = 1; y <= N; y++) {
+		// 			if (g[x].find(z) != g[x].end() && g[z].find(y) != g[z].end()) {
+		// 				g[x].insert(y);
+		// 			}
+		// 		}
+		// 	}
+		// }
 		int m = 0;
 		int k = 0;
 		for (int j = 1; j <= N; j++) {
-			if (g[j].size() > m) {
+			int aux = dfs(j, g);
+			// cout << "alcance de " << j << ": " << aux << endl;
+			if (aux > m) {
 				k = j;
-				m = g[j].size();
+				m = aux;
 			}
 		}
 		cout << "Case " << i + 1 << ": " << k << endl;
