@@ -25,62 +25,44 @@ UVa 10038 (listo)
 UVa 11340 (listo)
 UVa 12356 (comentado)
 UVa 10855 (comentado)
-UVa 11581
+UVa 11581 cargo
 UVa 00514 (listo)
-UVa 00732 (comentado)
-UVa 10172
+UVa 00732 
+UVa 10172 (comentado)
 
 
 String Basicos
 
-UVa 10878
-UVa 00554
-UVa 11385
-UVa 00902
-UVa 10906
-UVa 11357
-UVa 00488
-UVa 00644
+UVa 10878 (listo)
+UVa 00554 (comentado)
+UVa 11385 (comentado)
+UVa 00902 (comentado)
+UVa 10906 (comentado)
+UVa 11357 (comentado)
+UVa 00488 (listo)
+UVa 00644 (comentado)
 
-
-Ordenamiento/Búsqueda dicotómica
-UVa 10878
-UVa 00554
-UVa 11385
-UVa 00902
-UVa 10906
-UVa 11357
-UVa 00488
-UVa 00644
 
 Conjuntos y diccionarios
 UVa 00123 (comentado)
-UVa 00450
+UVa 00450 (comentado)
 UVa 00855 (listo)
-UVa 10057
-UVa 10258
-UVa 12541
-UVa 10226
-UVa 11286
-UVa 11572
-UVa 00978
-UVa 11136
-UVa 01203
-UVa 10954
+UVa 10057 (comentado)
+UVa 10258 (comentado)
+UVa 12541 (comentado)
+UVa 10226 (comentado)
+UVa 11286 (comentado)
+UVa 11572 (comentado)
+UVa 00978 (comentado)
+UVa 11136 (comentado)
+UVa 01203 (comentado)
+UVa 10954 (comentado)
 
 
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
+Grafos:
+UVa 00118
+UVa 00168
+UVa 00318
+UVa 11831
+UVa 11906
+UVa 12442
