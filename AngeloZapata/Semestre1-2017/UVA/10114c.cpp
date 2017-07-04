@@ -1,3 +1,4 @@
+/*https://github.com/dseco/acmudec/blob/master/JuanFecci/Semestre1-2017/Uva-10114.cpp*/
 #include <bits/stdc++.h>
 using namespace std;
 
