@@ -4,6 +4,8 @@ using namespace std;
 #define REP(i,a,b) for(int i=a; i< b; i++)
 #define D(a) cout << a << "\n"
 
+//Accepted
+
 int main(){
 	priority_queue <vector <int> > pq;
 	vector <int> vec;
