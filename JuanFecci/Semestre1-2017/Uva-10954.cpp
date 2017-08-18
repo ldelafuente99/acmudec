@@ -4,41 +4,34 @@ using namespace std;
 #define REP(i,a,b) for(int i=a; i< b; i++)
 #define D(a) cout << a << "\n"
 
+//Accepted
+
 int main(){
 
-	int N, aux, total, turno, aux2;
 	priority_queue <int> pq;
-	cin >> N;
+	int n, aux, aux1, aux2, cost;
 
-	while (N!=0){
-		if (N==1) {
-			cin >> aux;
-			cout << 0 << endl;
+	scanf("%d", &n);
+	while(n!=0){
+		REP(i,0,n){
+			scanf("%d", &aux);
+			pq.push(aux*-1);
 		}
-		else{
-			REP(i,0,N){
-				cin >> aux;
-				pq.push(aux*-1);
-			}
-			aux = pq.top()*-1;
+
+		cost = 0;
+		while (pq.size() > 1){	
+			aux1 = pq.top();
 			pq.pop();
-			total = aux + pq.top()*-1;
 			aux2 = pq.top();
 			pq.pop();
-			turno = total;
-			REP(i,2,N){
-				if (aux2 > pq.top()){
-					turno += pq.top()*-1;
-					pq.pop();
-					total += turno;
-				}
-				else{
-					pq.pop();
-				}
-			}
-			cout << total << endl;
+			aux = aux2+aux1;
+			cost+=aux*-1;
+			pq.push(aux);
 		}
-		cin >> N;
+
+		pq.pop();
+		printf("%d\n", cost);
+		scanf("%d", &n);
 	}
 
 }
