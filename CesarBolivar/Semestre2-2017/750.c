@@ -51,6 +51,9 @@ int main(int argc, char const* argv[])
 	int t;
 	scanf("%d", &t);
 	for (int i = 0; i < t; i++) {
+		if (i != 0) {
+			cout << endl;
+		}
 		// int row;
 		// char col;
 		char row;
@@ -63,14 +66,16 @@ int main(int argc, char const* argv[])
 		// printf("%c %d\n", row, col);
 		int count = 1;
 		for (string s : result[{row, col}]) {
-			cout << ' ' << count << "     ";
+			if (count < 10) {
+				cout << ' ';
+			}
+			cout << count << "     ";
 			for (char c : s) {
 				cout << ' ' << c;
 			}
 			cout << endl;
 			count++;
 		}
-		cout << endl;
 	}
 	return 0;
 }
