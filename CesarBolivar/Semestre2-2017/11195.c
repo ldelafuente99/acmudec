@@ -3,12 +3,55 @@
 
 int invalid[15][15];
 
+int diag1[2*15]; // diagonales con pendiente negativa (row - col) = cte
+int diag2[2*15]; // diagonales con pendiente positiva (row + col) = cte
+
 void swap(int* a, int* b) {
 	int c = *a;
 	*a = *b;
 	*b = c;
 	return;
 }
+
+int valid2(int v[], int row, int col, int n) {
+	int adjustment = n - 1; // esta wea es para evitar indices negativos
+	if (diag1[row - col + adjustment] || diag2[col + row] || invalid[row][col]) {
+		// printf("invalid for k = %d\n", k);
+		return 0;
+	}
+	return 1;
+}
+
+int perm2(int v[], int k, int n) {
+	if (k == n) {
+		// for (int i = 0; i < 2*n - 1; i++) {
+		// 	printf("%d", diag1[i]);
+		// }
+		// puts("");
+		// for (int i = 0; i < n; i++) {
+		// 	printf("%d", v[i]);
+		// }
+		// puts("");
+		return 1;
+	}
+	int count = 0;
+	for (int i = k; i < n; i++) {
+		swap(&v[k], &v[i]);
+		int row = v[k];
+		int col = k;
+		int adj = n - 1; // ajuste para evitar indices negativos
+		if (valid2(v, row, k, n)) {
+			diag1[row - col + adj] = 1;
+			diag2[col + row] = 1;
+			count += perm2(v, k + 1, n);
+			diag1[row - col + n - 1] = 0;
+			diag2[col + row] = 0;
+		}
+		swap(&v[k], &v[i]);
+	}
+	return count;
+}
+
 
 int valid(int v[], int k) {
 	if (invalid[k][v[k]]) {
@@ -34,6 +77,7 @@ int valid(int v[], int k) {
 	return 1;
 }
 
+
 int perm(int v[], int k, int n) {
 	if (k == n) {
 		// no es necesario revisar aca de nuevo, ya que solo se llama a la funcion cuando es una permutacion valida
@@ -48,7 +92,10 @@ int perm(int v[], int k, int n) {
 	for (int i = k; i < n; i++) {
 		swap(&v[k], &v[i]);
 		if (valid(v, k)) {
+		// if (valid2(v, k, n)) {
+			// diag[k - v[k] + n - 1] = 1;
 			count += perm(v, k + 1, n);
+			// diag[k - v[k] + n - 1] = 0;
 		}
 		swap(&v[k], &v[i]);
 	}
@@ -89,7 +136,12 @@ int main(int argc, char const* argv[])
 				}
 			}
 		}
-		int result = perm(v, 0, n);
+		for (int i = 0; i < 2*n - 1; i++) {
+			diag1[i] = 0;
+			diag2[i] = 0;
+		}
+		// int result = perm(v, 0, n);
+		int result = perm2(v, 0, n);
 		printf("Case %d: %d\n", count, result);
 		scanf("%d", &n);
 		count++;
