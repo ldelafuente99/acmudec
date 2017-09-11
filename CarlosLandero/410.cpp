@@ -40,5 +40,5 @@ int main(){
         printf("IMBALANCE = %.5lf\n\n", imbalance);
         especimen.clear();
     }
-
+    return 0;
 }
