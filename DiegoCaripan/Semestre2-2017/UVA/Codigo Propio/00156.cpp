@@ -2,32 +2,39 @@
 using namespace std;
 
 int main(){
-	string inputs,sortedInputs;
-	vector<string> vc;
-	vector<pair<string,bool> > sortedVC;
-	while((cin>>inputs) && inputs!="#"){
-		sortedInputs=inputs;
-		vc.push_back(inputs);
-		transform(sortedInputs.begin(), sortedInputs.end(), sortedInputs.begin(), ::tolower);
-		sort(sortedInputs.begin(), sortedInputs.end());
-		pair<string,bool> aux;
-		aux.first=sortedInputs; aux.second=true;
-		sortedVC.push_back(aux);
-	}
-	for(int i = 0; i < vc.size() ; i++)
-		for(int j = 0; j < vc.size();j++){
-			if(((sortedVC.at(i).second)|(sortedVC.at(j).second))==true)
-				if(sortedVC.at(i).first == sortedVC.at(j).first){
-					sortedVC.at(i).second = false;
-					sortedVC.at(j).second = false;
-					break;
-				}
-		}
-	for (int i = 0; i < vc.size(); i++){
-		if(sortedVC.at(i).second==true){
-			cout<<vc.at(i)<<endl;
-		}
-	}
-	
 
+	string input,sortedInput;
+	vector<string> vC;
+	vector< pair<string,bool> > sortedvC;
+
+	while((cin>>input) && input!="#"){
+		sortedInput = input;
+		pair<string,bool> aux;
+		transform(sortedInput.begin(), sortedInput.end(), sortedInput.begin(), ::tolower);
+		stable_sort(sortedInput.begin(), sortedInput.end());
+		aux.first = sortedInput; aux.second = false;
+		vC.push_back(input);
+		sortedvC.push_back(aux);
+	}
+
+	for(int i = 0 ; i < sortedvC.size() ; i++){
+		if(sortedvC.at(i).second == true) continue;
+		for(int j = 0; j < sortedvC.size() ; j++)
+			if(((sortedvC.at(i).second == false)|(sortedvC.at(j).second == false)) && i != j){
+				if(sortedvC.at(i).first == sortedvC.at(j).first){
+					sortedvC.at(i).second=true;
+					sortedvC.at(j).second=true;
+				}
+			}
+	}
+	vector<string> sortedOutput;
+	for (int i = 0; i < vC.size(); i++)
+	{
+		if(sortedvC.at(i).second == false)
+			sortedOutput.push_back(vC.at(i));
+	}
+	sort(sortedOutput.begin(), sortedOutput.end());
+	for(int i = 0; i < sortedOutput.size(); i++){
+		cout<<sortedOutput.at(i)<<endl;
+	}
 }
