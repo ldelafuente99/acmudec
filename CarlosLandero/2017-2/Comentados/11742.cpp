@@ -1,3 +1,4 @@
+// Sacado de https://github.com/ackoroa/UVa-Solutions/blob/master/UVa%2011742%20-%20Social%20Constraints/src/UVa%2011742%20-%20Social%20Constraints.cpp
 #include <cstdio>
 #include <algorithm>
 using namespace std;
