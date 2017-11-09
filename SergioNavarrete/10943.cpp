@@ -3,7 +3,7 @@
 #include <cstdlib>
 #include <cstring>
 #define MAX 101
-
+// UvA 10943 - How do you add?
 using namespace std;
 
 int number,k_numbers;
