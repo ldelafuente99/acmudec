@@ -1,50 +1,46 @@
-#include <iostream>
-#include <cstdio>
-#include <algorithm>
-#include <cstring>
- //UvA 10465 - Homer Simpson
+#include <bits/stdc++.h>
+
 using namespace std;
 
-int memo[10001];
+int burgersAt[10000];
+int beer;
 
-int dp(int t,int a,int b){
-
-for (int i = 1; i <= t;i++){
-
-	if(i < a && i < b) continue;
-	if (i >= a && i < b && memo[i - a] != -1) memo[i] = 1 + memo[i - a];
-	else if (memo[i-a] != -1 || i >= b && memo[i-b] != -1) memo[i] = max(memo[i - a], memo[i - b]) + 1;
-}
-	for(int i=0;i<=t;i++){
-		printf("%d ",memo[i]);
-	}printf("\n");
-return memo[t];
-
+int numberOfBurgers(int n, int m, int t){
+    beer = 0;
+    for(int i=0;i<=t;i++){
+        burgersAt[i]=-1;
+    }
+    burgersAt[0]=0;
+    for(int i=1;i<=t;i++){
+        if (i >= m && burgersAt[i - m] >= 0){
+            burgersAt[i] = burgersAt[i - m] + 1;
+        }
+        if (i >= n && burgersAt[i - n] >= 0){
+            burgersAt[i] = max(burgersAt[i - n] + 1, burgersAt[i]);
+        }
+    }
+    if(burgersAt[t]>=0){
+        return burgersAt[t];
+    }
+    else{
+        beer=1;
+        while(burgersAt[t-beer]==-1){
+            ++beer;
+        }
+        return burgersAt[t-beer];
+    }
 }
 
 int main(){
-	
-	int t,ba,bb;
-	memset(memo,-1,sizeof(memo));
-	cin >> ba;
-	cin >> bb;
-	cin >> t;
-	memo[0] = 0;
-	if(bb< ba) swap(ba,bb);
-	int res = dp(t,ba,bb);
-	
-	if(res == -1) {
-		res =  t;
-		while(memo[res]== -1){
-			res--;
-		}
-		printf("%d %d\n", memo[res], t - res);
-	}
-
-	else
-		printf("%d\n", res);
-
-
-	return 0;
-
+    int n,m,t;
+    while(scanf("%d %d %d",&n,&m,&t)!=EOF){
+        int x = numberOfBurgers(n,m,t);
+        if(beer==0){
+            printf("%d\n",x);
+        }
+        else if(beer>0){
+            printf("%d %d\n",x,beer);
+        }
+    }
+    return 0;
 }
